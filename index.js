@@ -76,12 +76,34 @@ app.post('/login', async (req, res) => {
 
 // Profile Route
 app.get('/profile', (req, res) => {
-  const { token } = req.cookies;
-  jwt.verify(token, secret, {}, (err, info) => {
-    if (err) throw err;
-    res.json(info);
-  });
+  try {
+    const { token } = req.cookies;
+    if (!token) {
+      return res.status(401).json({ message: 'Token is missing' });
+    }
+
+    jwt.verify(token, secret, {}, (err, info) => {
+      if (err) {
+        console.error('Token verification failed:', err);
+        return res.status(401).json({ message: 'Token verification failed', error: err.message });
+      }
+      res.json(info);
+    });
+  } catch (error) {
+    console.error('Server error:', error);
+    res.status(500).json({ message: 'Internal Server Error', error: error.message });
+  }
 });
+
+
+
+// app.get('/profile', (req, res) => {
+//   const { token } = req.cookies;
+//   jwt.verify(token, secret, {}, (err, info) => {
+//     if (err) throw err;
+//     res.json(info);
+//   });
+// });
 
 // Logout Route
 app.post('/logout', (req, res) => {
