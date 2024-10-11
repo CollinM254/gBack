@@ -172,6 +172,7 @@ app.put('/post', uploadMiddleware.single('file'), async (req, res) => {
 
 // Get All Posts Route
 app.get('/post', async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://gci-kutus-web.vercel.app'); // Ensure this matches your frontend's origin
   res.json(
     await Post.find()
       .populate('author', ['username'])
@@ -179,6 +180,15 @@ app.get('/post', async (req, res) => {
       .limit(20)
   );
 });
+
+// app.get('/post', async (req, res) => {
+//   res.json(
+//     await Post.find()
+//       .populate('author', ['username'])
+//       .sort({ createdAt: -1 })
+//       .limit(20)
+//   );
+// });
 
 // Get Single Post by ID
 app.get('/post/:id', async (req, res) => {
