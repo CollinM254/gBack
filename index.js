@@ -20,7 +20,7 @@ const apiRouter = require('./api');
 const salt = bcrypt.genSaltSync(10);
 const secret = process.env.JWT_SECRET || 'asdfe45we45w345wegw345werjktjwertkjrt5rtyt'; // JWT secret
 // const port = process.env.PORT || 5000; // Dynamic port for Heroku
-const port = process.env.PORT || 5000; // Use dynamic port for Render
+const port = process.env.PORT || 10000; // Use dynamic port for Render
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
