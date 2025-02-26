@@ -19,7 +19,13 @@ const apiRouter = require('./api');
 // Constants from environment variables
 const salt = bcrypt.genSaltSync(10);
 const secret = process.env.JWT_SECRET || 'asdfe45we45w345wegw345werjktjwertkjrt5rtyt'; // JWT secret
-const port = process.env.PORT || 5000; // Dynamic port for Heroku
+// const port = process.env.PORT || 5000; // Dynamic port for Heroku
+const port = process.env.PORT || 5000; // Use dynamic port for Render
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
+
 const mongoUri = process.env.MONGO_URI || 'mongodb+srv://gci:Collin@gci.fc2y1.mongodb.net/?retryWrites=true&w=majority&appName=gci'; // Mongo URI
 
 // Allow multiple origins for CORS
